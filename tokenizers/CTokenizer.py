@@ -3,7 +3,7 @@ from tokenizing import *
 
 
 class CTokenizer(BaseTokenizer):
-    NAME = 'c'
+    LANGUAGE_NAME = 'c'
     EXTENSIONS = ('.c',)
 
     FLAGS = 0

@@ -3,7 +3,7 @@ from tokenizing import *
 
 
 class BashTokenizer(BaseTokenizer):
-    NAME = 'bash'
+    LANGUAGE_NAME = 'bash'
     EXTENSIONS = ('.sh',)
 
     TOKENS = [

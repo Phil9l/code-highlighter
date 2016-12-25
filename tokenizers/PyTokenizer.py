@@ -3,7 +3,7 @@ from tokenizing import *
 
 
 class PyTokenizer(BaseTokenizer):
-    NAME = 'python'
+    LANGUAGE_NAME = 'python'
     EXTENSIONS = ('.py',)
 
     FLAGS = 0

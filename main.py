@@ -34,7 +34,7 @@ if __name__ == '__main__':
     tokenizers = (PyTokenizer, BashTokenizer, CTokenizer)
     if args.language:
         for ct in tokenizers:
-            if ct.NAME == args.language:
+            if ct.LANGUAGE_NAME == args.language:
                 tokenizer = ct
     else:
         for ct in tokenizers:

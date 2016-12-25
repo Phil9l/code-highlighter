@@ -19,6 +19,26 @@ def _combine_range(lines, start, end):
     return ''.join(rows), end
 
 
+TOKEN_TRANSFORM_DICT = {
+    tokenizing.COMMENT: 'comment',
+    tokenizing.NUMBER: 'number',
+    tokenizing.OP: 'operator',
+    tokenizing.STRING: 'string',
+    tokenizing.BUILTIN: 'builtin',
+    tokenizing.KEYWORD: 'keyword',
+    tokenizing.INDENT: 'indent',
+    tokenizing.DEDENT: 'dedent',
+    tokenizing.NEW_INDENT: 'new-indent',
+    tokenizing.INCORRECT_NAME: 'incorrect-name',
+    tokenizing.LINE_BREAK: 'linebreak',
+    tokenizing.VARIABLE: 'variable',
+    tokenizing.IMPORT: 'import',
+    tokenizing.LIBRARY: 'library',
+    tokenizing.MAGIC_METHOD: 'magic-method',
+    tokenizing.DECORATOR: 'decorator',
+}
+
+
 def tokenize_source_code(source, tokenizer):
     lines = source.splitlines(True)
     written = Position(1, 0)
@@ -29,39 +49,7 @@ def tokenize_source_code(source, tokenizer):
         start_pos, end_pos = Position(srow, scol), Position(erow, ecol)
         curent_token = Token(t_str, t_type)
 
-        result_type = ''
-        if curent_token.type == tokenizing.COMMENT:
-            result_type = 'comment'
-        elif curent_token.type == tokenizing.NUMBER:
-            result_type = 'number'
-        elif curent_token.type == tokenizing.OP:
-            result_type = 'operator'
-        elif curent_token.type == tokenizing.STRING:
-            result_type = 'string'
-        elif curent_token.type == tokenizing.BUILTIN:
-            result_type = 'builtin'
-        elif curent_token.type == tokenizing.KEYWORD:
-            result_type = 'keyword'
-        elif curent_token.type == tokenizing.INDENT:
-            result_type = 'indent'
-        elif curent_token.type == tokenizing.DEDENT:
-            result_type = 'dedent'
-        elif curent_token.type == tokenizing.NEW_INDENT:
-            result_type = 'new-indent'
-        elif curent_token.type == tokenizing.INCORRECT_NAME:
-            result_type = 'incorrect-name'
-        elif curent_token.type == tokenizing.LINE_BREAK:
-            result_type = 'linebreak'
-        elif curent_token.type == tokenizing.VARIABLE:
-            result_type = 'variable'
-        elif curent_token.type == tokenizing.IMPORT:
-            result_type = 'import'
-        elif curent_token.type == tokenizing.LIBRARY:
-            result_type = 'library'
-        elif curent_token.type == tokenizing.MAGIC_METHOD:
-            result_type = 'magic-method'
-        elif curent_token.type == tokenizing.DECORATOR:
-            result_type = 'decorator'
+        result_type = TOKEN_TRANSFORM_DICT.get(curent_token.type, '')
 
         if result_type:
             if written != start_pos:

@@ -3,6 +3,9 @@ from tokenizing import *
 
 
 class CTokenizer(BaseTokenizer):
+    NAME = 'c'
+    EXTENSIONS = ('.c',)
+
     FLAGS = 0
     TOKENS = [
         (re.compile(r'^    '), INDENT),

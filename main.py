@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import argparse
-import webbrowser
 import os
 import logging
 from utils import generate_html_page, tokenize_source_code
@@ -32,20 +31,15 @@ if __name__ == '__main__':
     sourcename = args.sourcefile
 
     tokenizer = None
+    tokenizers = (PyTokenizer, BashTokenizer, CTokenizer)
     if args.language:
-        if args.language == 'python':
-            tokenizer = PyTokenizer
-        elif args.language == 'bash':
-            tokenizer = BashTokenizer
-        elif args.language == 'c':
-            tokenizer = CTokenizer
+        for ct in tokenizers:
+            if ct.NAME == args.language:
+                tokenizer = ct
     else:
-        if sourcename.endswith('.py'):
-            tokenizer = PyTokenizer
-        elif sourcename.endswith('.sh'):
-            tokenizer = BashTokenizer
-        elif sourcename.endswith('.c'):
-            tokenizer = CTokenizer
+        for ct in tokenizers:
+            if any(sourcename.endswith(ext) for ext in ct.EXTENSIONS):
+                tokenizer = ct
 
     if tokenizer is None:
         raise ValueError('No tokenizer found for you language. Specify it '
@@ -61,4 +55,5 @@ if __name__ == '__main__':
         f.write(encoded_text)
 
     if args.browser:
+        import webbrowser
         webbrowser.open('file://' + os.path.abspath(args.outputfile))

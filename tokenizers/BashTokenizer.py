@@ -3,6 +3,9 @@ from tokenizing import *
 
 
 class BashTokenizer(BaseTokenizer):
+    NAME = 'bash'
+    EXTENSIONS = ('.sh',)
+
     TOKENS = [
         (re.compile(r'^    '), INDENT),
         (re.compile(r'#!.*$'), COMMENT),

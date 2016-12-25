@@ -3,6 +3,9 @@ from tokenizing import *
 
 
 class PyTokenizer(BaseTokenizer):
+    NAME = 'python'
+    EXTENSIONS = ('.py',)
+
     FLAGS = 0
     TOKENS = [
         (re.compile(r'^    '), INDENT),

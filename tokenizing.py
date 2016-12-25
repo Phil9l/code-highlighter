@@ -2,7 +2,7 @@ import re
 from token_types import *
 
 
-class Token(object):
+class Token:
     def __init__(self, token_type, content, start, end):
         self._type = token_type
         self._content = content
@@ -33,7 +33,10 @@ class Token(object):
         return self._end
 
 
-class BaseTokenizer(object):
+class BaseTokenizer:
+    NAME = None
+    EXTENSIONS = tuple()
+
     TOKENS = []
     CORRECT_NAME = re.compile(r'^[A-Za-z_]\w*$')
     BUILTINS = {}
